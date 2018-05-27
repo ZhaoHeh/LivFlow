@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="appTheme">#bc2332</color>
+    <color name="b">#eeffff</color>
+    <color name="c">#ffeeff</color>
+    <color name="d">#ffffee</color>
+    <color name="e">#ffeeee</color>
+    <color name="f">#eeffee</color>
+    <color name="g">#eeeeff</color>
 </resources>

@@ -1,31 +1,39 @@
 package com.zhaoheh.livflow;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import org.litepal.crud.DataSupport;
+public class MainActivity extends AppCompatActivity {
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+    private static final String TAG = "MainActivity";
 
-public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDialogListener,
-        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+    private static final int SHORT_TERM_FRAGMENT = 0;
 
-    private static final String TAG = "LivflowMainActivity";
+    private static final int  LONG_TERM_FRAGMENT = 1;
 
-    private List<LightTaskInformation> mTaskInfoList = new ArrayList<>();
+    private Button mAddTaskBtn;
 
-    private TaskDialog mDialog;
+    private LinearLayout mLinearLayoutShortTerm;
+
+    private LinearLayout mLinearLayoutLongTerm;
+
+    private TextView mTextViewShortTerm;
+
+    private TextView mTextViewLongTerm;
+
+
+    Button getAddTaskBtn() {
+        return mAddTaskBtn;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,126 +43,55 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.hide();
 
-        Button addTaskBtn = (Button) findViewById(R.id.add_task_button);
-        addTaskBtn.setOnClickListener(new View.OnClickListener() {
+        mAddTaskBtn = (Button) findViewById(R.id.add_task_button);
+
+        mLinearLayoutShortTerm = (LinearLayout) findViewById(R.id.ll_short_term);
+
+        mLinearLayoutLongTerm = (LinearLayout) findViewById(R.id.ll_long_term);
+
+        mTextViewShortTerm = (TextView) findViewById(R.id.tv_short_term);
+
+        mTextViewLongTerm = (TextView) findViewById(R.id.tv_long_term);
+
+        mLinearLayoutShortTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDialog();
-                mDialog.show();
+                mLinearLayoutShortTerm.setBackgroundColor(Color.parseColor("#eeeeee"));
+                mTextViewShortTerm.setTextColor(getResources().getColor(R.color.appTheme));
+                mLinearLayoutLongTerm.setBackgroundColor(getResources().getColor(R.color.appTheme));
+                mTextViewLongTerm.setTextColor(Color.parseColor("#eeeeee"));
+                setCurrentFragment(SHORT_TERM_FRAGMENT);
             }
         });
+
+        mLinearLayoutLongTerm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLinearLayoutShortTerm.setBackgroundColor(getResources().getColor(R.color.appTheme));
+                mTextViewShortTerm.setTextColor(Color.parseColor("#eeeeee"));
+                mLinearLayoutLongTerm.setBackgroundColor(Color.parseColor("#eeeeee"));
+                mTextViewLongTerm.setTextColor(getResources().getColor(R.color.appTheme));
+                setCurrentFragment(LONG_TERM_FRAGMENT);
+            }
+        });
+
+        setCurrentFragment(SHORT_TERM_FRAGMENT);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateTasksInfo();
-        showTasksListView();
-    }
 
-    private void updateDialog() {
-        mDialog = null;
-        mDialog = new TaskDialog(MainActivity.this, this);
-    }
-
-    private void updateTasksInfo() {
-        List<LightTaskInformation> tasks = new ArrayList<>();
-
-        LightTaskInformation testInfo = new LightTaskInformation(0, "The first task",
-                "Task created", "2018/05/13 02:07:33");
-        tasks.add(testInfo);
-
-        List<TaskData> tasksFromDB = DataSupport.findAll(TaskData.class);
-        for (TaskData task : tasksFromDB) {
-            LightTaskInformation info = new LightTaskInformation(task);
-            tasks.add(info);
+    private void setCurrentFragment(int selected) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        switch (selected) {
+            case SHORT_TERM_FRAGMENT:
+                transaction.replace(R.id.tasks_fragment, new ShortTermTasksFragment());
+                break;
+            case LONG_TERM_FRAGMENT:
+                transaction.replace(R.id.tasks_fragment, new LongTermTasksFragment());
+                break;
+            default:
+                break;
         }
-        mTaskInfoList = tasks;
-    }
-
-    private void showTasksListView() {
-        TaskInfoAdapter adapter = new TaskInfoAdapter(MainActivity.this, R.layout.task_item,
-                mTaskInfoList);
-        ListView listView = (ListView) findViewById(R.id.tasks_list_view);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
-        listView.setOnItemLongClickListener(this);
-    }
-
-    @Override
-    public void onSubmit(TaskDialog dialog) {
-        if (mDialog != null) {
-            submit(dialog);
-        }
-    }
-
-    private void submit(TaskDialog dialog) {
-        View view = dialog.getView();
-        final EditText taskNameTxt = (EditText) view.findViewById(R.id.task_name_txt);
-        final EditText taskTargetTxt = (EditText) view.findViewById(R.id.task_target_txt);
-        final EditText taskDesireTxt = (EditText) view.findViewById(R.id.task_desire_txt);
-
-        String taskName = taskNameTxt.getText().toString();
-        if (taskName.equals("")) {
-            Toast.makeText(MainActivity.this, "The name cannot be empty.",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            String taskTarget = taskTargetTxt.getText().toString();
-            String taskDesire = taskDesireTxt.getText().toString();
-            String taskTime = getCurrentTime();
-            int taskId = taskName.hashCode();
-
-            TaskData taskData = new TaskData();
-            taskData.setName(taskName);
-            taskData.setTarget(taskTarget);
-            taskData.setDesire(taskDesire);
-            taskData.setState(TaskState.STATE_READY);
-            taskData.setIsCurrent(false);
-            taskData.setNumNodes(1);
-            taskData.setTaskId(taskId);
-            taskData.setCreatedTime(taskTime);
-            taskData.save();
-
-            TaskNodeData taskNodeData = new TaskNodeData();
-            taskNodeData.setBelongTo(taskData.getTaskId());
-            taskNodeData.setSerialNum(0);
-            taskNodeData.setContent("此任务被创建");
-            taskNodeData.setCreatedTime(taskTime);
-            taskNodeData.save();
-        }
-        updateTasksInfo();
-        showTasksListView();
-    }
-
-    private String getCurrentTime() {
-        Date d = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return sdf.format(d);
-    }
-
-    @Override
-    public void onForget(TaskDialog dialog) {
-        forget();
-    }
-
-    private void forget() {
-        Toast.makeText(MainActivity.this, "Creating has been abandoned.",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LightTaskInformation info = mTaskInfoList.get(position);
-        Intent intent = new Intent(MainActivity.this, TaskActivity.class);
-        intent.putExtra("taskName", info.getName());
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        LightTaskInformation info = mTaskInfoList.get(position);
-        Toast.makeText(MainActivity.this, "LongClick"+info.getName(),
-                Toast.LENGTH_SHORT).show();
-        return true;
+        transaction.commit();
     }
 }
