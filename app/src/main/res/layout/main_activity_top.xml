@@ -16,15 +16,18 @@
         android:text="LivFlow"
         android:textSize="21sp"
         android:textStyle="bold"
-        android:textColor="#fff" />
+        android:textColor="#ffffff" />
 
     <Button
-        android:id="@+id/add_task_button"
+        android:id="@+id/main_activity_top_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:background="@color/appTheme"
-        android:drawableTop="@drawable/iv_adding_white_48"
+        android:text="Btn"
+        android:textColor="#ffffff"
+        android:textSize="21sp"
+        android:textAllCaps="false"
         android:padding="0dp"/>
 
 </RelativeLayout>

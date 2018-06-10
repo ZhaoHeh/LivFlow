@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int  LONG_TERM_FRAGMENT = 1;
 
-    private Button mAddTaskBtn;
+    private Button mBtn;
 
     private LinearLayout mLinearLayoutShortTerm;
 
@@ -30,9 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextViewLongTerm;
 
 
-    Button getAddTaskBtn() {
-        return mAddTaskBtn;
-    }
+    Button getAddTaskBtn() { return mBtn; }
 
 
     @Override
@@ -43,14 +41,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.hide();
 
-        mAddTaskBtn = (Button) findViewById(R.id.add_task_button);
+        mBtn = (Button) findViewById(R.id.main_activity_top_button);
 
         mLinearLayoutShortTerm = (LinearLayout) findViewById(R.id.ll_short_term);
-
         mLinearLayoutLongTerm = (LinearLayout) findViewById(R.id.ll_long_term);
-
         mTextViewShortTerm = (TextView) findViewById(R.id.tv_short_term);
-
         mTextViewLongTerm = (TextView) findViewById(R.id.tv_long_term);
 
         mLinearLayoutShortTerm.setOnClickListener(new View.OnClickListener() {
@@ -84,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (selected) {
             case SHORT_TERM_FRAGMENT:
-                transaction.replace(R.id.tasks_fragment, new ShortTermTasksFragment());
+                transaction.replace(R.id.tasks_frame_layout, new ShortTermTasksFragment());
                 break;
             case LONG_TERM_FRAGMENT:
-                transaction.replace(R.id.tasks_fragment, new LongTermTasksFragment());
+                transaction.replace(R.id.tasks_frame_layout, new LongTermTasksFragment());
                 break;
             default:
                 break;

@@ -29,7 +29,7 @@
         android:layout_weight="15" >
 
         <TextView
-            android:id="@+id/task_content_for_short_term"
+            android:id="@+id/task_content_for_short_saved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -46,12 +46,12 @@
         android:layout_weight="3"
         android:layout_centerInParent="true">
 
-        <ImageView
-            android:id="@+id/dragging_task_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/iv_draging_item_48"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/dragging_task_item"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:src="@drawable/iv_draging_item_48"/>-->
 
     </RelativeLayout>
 

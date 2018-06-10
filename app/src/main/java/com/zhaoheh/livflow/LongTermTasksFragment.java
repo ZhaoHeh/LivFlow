@@ -46,8 +46,9 @@ public class LongTermTasksFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMainActivity = (MainActivity) getActivity();
-        Button addTaskBtn = mMainActivity.getAddTaskBtn();
-        addTaskBtn.setOnClickListener(new View.OnClickListener() {
+        Button btn = mMainActivity.getAddTaskBtn();
+        btn.setText("Add");
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDialog();
