@@ -3,11 +3,49 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="appTheme">#bc2332</color>
+    <color name="appTheme">#BC2332</color>
+
     <color name="b">#eeffff</color>
     <color name="c">#ffeeff</color>
     <color name="d">#ffffee</color>
     <color name="e">#ffeeee</color>
     <color name="f">#eeffee</color>
     <color name="g">#eeeeff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="normalBackground">#EEEEEE</color>
+    <color name="normalBackground0">#DDDDDD</color>
+    <color name="normalBackground1">#CCCCCC</color>
+    <color name="normalBackground2">#BBBBBB</color>
+    <color name="normalBackground3">#AAAAAA</color>
+    <color name="normalBackground4">#999999</color>
+    <color name="gary0">#95A5A5</color>
+    <color name="gary1">#A6B6B6</color>
+    <color name="gary2">#B7C6C7</color>
+    <color name="gary3">#C8D7C7</color>
+    <color name="gary4">#D9E8D8</color>
+    <color name="appTheme0">#CD3443</color>
+    <color name="appTheme1">#DE4554</color>
+    <color name="appTheme2">#EF5665</color>
+    <color name="appTheme3">#FF6776</color>
+    <color name="appTheme4">#FF7887</color>
+    <color name="appTheme5">#FF8998</color>
+    <color name="appTheme6">#FF9AA9</color>
+    <color name="appTheme7">#FFABBA</color>
+    <color name="appTheme8">#FFBCCB</color>
+    <color name="appTheme9">#FFCDDC</color>
+    <color name="appThemeA">#FFDEED</color>
+    <color name="appThemeB">#FFEFFE</color>
+
+    <color name="ready_state_short_task_bg_color">@color/normalBackground</color>
+    <color name="doing_state_short_task_bg_color">@color/normalBackground</color>
+    <color name="suspended_state_short_task_bg_color">@color/normalBackground1</color>
+    <color name="done_state_short_task_bg_color">@color/normalBackground</color>
+    <color name="dropped_state_short_task_bg_color">@color/normalBackground</color>
+
+    <color name="ready_state_short_task_txt_color">@color/appTheme6</color>
+    <color name="doing_state_short_task_txt_color">@color/appTheme</color>
+    <color name="suspended_state_short_task_txt_color">@color/appTheme</color>
+    <color name="done_state_short_task_txt_color">#95A5A5</color>
+    <color name="dropped_state_short_task_txt_color">#95A5A5</color>
+
 </resources>

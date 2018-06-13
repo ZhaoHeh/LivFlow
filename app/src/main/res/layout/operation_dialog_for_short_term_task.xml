@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/todo_btn_op_dialog_short_task"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp"
+        android:text="去做"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"/>
+
+    <TextView
+        android:id="@+id/done_btn_op_dialog_short_task"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp"
+        android:text="完成"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"/>
+
+    <TextView
+        android:id="@+id/suspend_btn_op_dialog_short_task"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp"
+        android:text="挂起"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"/>
+
+    <TextView
+        android:id="@+id/continue_btn_op_dialog_short_task"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp"
+        android:text="继续"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"/>
+
+    <TextView
+        android:id="@+id/drop_btn_op_dialog_short_task"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp"
+        android:text="放弃"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"/>
+
+</LinearLayout>
