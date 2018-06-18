@@ -3,11 +3,15 @@
 
     <dbname value="Tasks" ></dbname>
 
-    <version value="3" ></version>
+    <version value="4" ></version>
 
     <list>
-        <mapping class="com.zhaoheh.livflow.TaskData"></mapping>
-        <mapping class="com.zhaoheh.livflow.TaskNodeData"></mapping>
-        <mapping class="com.zhaoheh.livflow.ShortTermTaskData"></mapping>
+        <!--<mapping class="com.zhaoheh.livflow.TaskData"></mapping>-->
+        <!--<mapping class="com.zhaoheh.livflow.TaskNodeData"></mapping>-->
+        <!--<mapping class="com.zhaoheh.livflow.ShortTermTaskData"></mapping>-->
+
+        <mapping class="com.zhaoheh.livflow.LongTermTask.LongTaskData"></mapping>
+        <mapping class="com.zhaoheh.livflow.LongTermTask.LongTaskNodeData"></mapping>
+        <mapping class="com.zhaoheh.livflow.ShortTermTask.ShortTaskData"></mapping>
     </list>
 </litepal>
