@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhaoheh.livflow.PrimaryActivity;
+import com.zhaoheh.livflow.MainActivity;
 import com.zhaoheh.livflow.R;
 import com.zhaoheh.livflow.TaskState;
 
@@ -30,7 +30,7 @@ public class LongTaskDetailFragment extends Fragment {
     private static final String TAG = "LongTaskDetailFrg";
 
 
-    private PrimaryActivity mActivity;
+    private MainActivity mActivity;
 
     private String mLongTaskName;
 
@@ -44,7 +44,7 @@ public class LongTaskDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = (PrimaryActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
         mLongTaskName = mActivity.getLongTaskName();
         setHasOptionsMenu(true);
     }

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zhaoheh.livflow.PrimaryActivity;
+import com.zhaoheh.livflow.MainActivity;
 import com.zhaoheh.livflow.R;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class LongTaskSimpleDataAdapter
 
     private int mResId;
 
-    private PrimaryActivity mActivity;
+    private MainActivity mActivity;
 
     private List<LongTaskSimpleData> mData;
 
@@ -41,7 +41,7 @@ public class LongTaskSimpleDataAdapter
     }
 
 
-    public LongTaskSimpleDataAdapter(List<LongTaskSimpleData> data, PrimaryActivity activity) {
+    public LongTaskSimpleDataAdapter(List<LongTaskSimpleData> data, MainActivity activity) {
         mData = data;
         mActivity = activity;
     }

@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zhaoheh.livflow.PrimaryActivity;
+import com.zhaoheh.livflow.MainActivity;
 import com.zhaoheh.livflow.R;
 
 import org.litepal.crud.DataSupport;
@@ -29,7 +29,7 @@ public class ShortTaskSavedFragment extends Fragment {
 
     private static final String TAG = "ShortTaskSavedFrg";
 
-    private PrimaryActivity mActivity;
+    private MainActivity mActivity;
 
     private View mFragmentView;
 
@@ -56,7 +56,7 @@ public class ShortTaskSavedFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        mActivity = (PrimaryActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
         setHasOptionsMenu(true);
     }
 

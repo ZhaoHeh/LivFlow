@@ -25,7 +25,7 @@ import com.zhaoheh.livflow.TaskCalendar.TaskCalendarMainFragment;
 
 import java.util.List;
 
-public class PrimaryActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "PrimaryActivity";
@@ -45,7 +45,7 @@ public class PrimaryActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_primary);
+        setContentView(R.layout.activity_main);
 
         // 获取两个关键的Layout布局
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

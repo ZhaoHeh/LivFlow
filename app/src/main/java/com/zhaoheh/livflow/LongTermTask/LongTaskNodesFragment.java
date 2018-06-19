@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.zhaoheh.livflow.PrimaryActivity;
+import com.zhaoheh.livflow.MainActivity;
 import com.zhaoheh.livflow.R;
 
 import org.litepal.crud.DataSupport;
@@ -32,7 +32,7 @@ public class LongTaskNodesFragment extends Fragment {
     private static final String TAG = "LongTaskNodesFragment";
 
 
-    private PrimaryActivity mActivity;
+    private MainActivity mActivity;
 
     private String mLongTaskName;
 
@@ -51,7 +51,7 @@ public class LongTaskNodesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = (PrimaryActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
         mLongTaskName = mActivity.getLongTaskName();
         setHasOptionsMenu(true);
     }

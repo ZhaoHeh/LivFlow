@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zhaoheh.livflow.PrimaryActivity;
+import com.zhaoheh.livflow.MainActivity;
 import com.zhaoheh.livflow.R;
 
 import org.litepal.crud.DataSupport;
@@ -32,7 +32,7 @@ public class ShortTaskEditingFragment extends Fragment {
 
     private List<ShortTaskData> mData;
 
-    private PrimaryActivity mActivity;
+    private MainActivity mActivity;
 
     private View mFragmentView;
 
@@ -65,7 +65,7 @@ public class ShortTaskEditingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
-        mActivity = (PrimaryActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
         // Inflate the layout for this fragment
         mFragmentView = inflater.inflate(R.layout.fragment_short_task_editing,
                 container, false);

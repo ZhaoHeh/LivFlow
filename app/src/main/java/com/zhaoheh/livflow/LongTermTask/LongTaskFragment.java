@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zhaoheh.livflow.PrimaryActivity;
+import com.zhaoheh.livflow.MainActivity;
 import com.zhaoheh.livflow.R;
 import com.zhaoheh.livflow.TaskState;
 
@@ -37,7 +37,7 @@ public class LongTaskFragment extends Fragment
 
     private static final String TAG = "LongTaskFragment";
 
-    private PrimaryActivity mActivity;
+    private MainActivity mActivity;
 
     private View mFragmentView;
 
@@ -64,7 +64,7 @@ public class LongTaskFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        mActivity = (PrimaryActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
         setHasOptionsMenu(true);
     }
 
