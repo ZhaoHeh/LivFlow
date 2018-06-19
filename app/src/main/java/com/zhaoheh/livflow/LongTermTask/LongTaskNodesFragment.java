@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -49,7 +53,7 @@ public class LongTaskNodesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mActivity = (PrimaryActivity) getActivity();
         mLongTaskName = mActivity.getLongTaskName();
-        mData = getLongTaskNodesData(mLongTaskName);
+        setHasOptionsMenu(true);
     }
 
 
@@ -99,6 +103,8 @@ public class LongTaskNodesFragment extends Fragment {
         LinearLayout llDetail = view.findViewById(R.id.long_task_bottom_detail);
         LinearLayout llNodes = view.findViewById(R.id.long_task_bottom_nodes);
 
+        mData = getLongTaskNodesData(mLongTaskName);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mAdapter = new LongTaskNodeDataAdapter(mData);
@@ -112,6 +118,26 @@ public class LongTaskNodesFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_long_task_node_add, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+            case R.id.long_task_adding_node:
+                Log.d(TAG, "onOptionsItemSelected long_task_adding_node");
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
 }

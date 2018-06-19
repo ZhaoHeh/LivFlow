@@ -14,13 +14,13 @@
         android:layout_height="match_parent"
         android:paddingTop="2dp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/short_task_editing_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_edit_white_24dp" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/short_task_editing_fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@drawable/ic_edit_white_24dp" />-->
 
 
 </android.support.design.widget.CoordinatorLayout>

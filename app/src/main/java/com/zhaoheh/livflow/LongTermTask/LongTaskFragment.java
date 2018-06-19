@@ -10,6 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -40,8 +43,6 @@ public class LongTaskFragment extends Fragment
 
     private RecyclerView mRecyclerView;
 
-    private FloatingActionButton mFab;
-
     private List<LongTaskSimpleData> mData;
 
     private AlertDialog mDialog;
@@ -64,7 +65,7 @@ public class LongTaskFragment extends Fragment
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         mActivity = (PrimaryActivity) getActivity();
-        updateData();
+        setHasOptionsMenu(true);
     }
 
 
@@ -75,14 +76,7 @@ public class LongTaskFragment extends Fragment
         // Inflate the layout for this fragment
         mFragmentView = inflater.inflate(R.layout.fragment_long_task, container, false);
         mRecyclerView = mFragmentView.findViewById(R.id.long_task_rv);
-        mFab = mFragmentView.findViewById(R.id.long_task_adding_fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDialog();
-                mDialog.show();
-            }
-        });
+        updateData();
         initViews();
         return mFragmentView;
     }
@@ -225,6 +219,27 @@ public class LongTaskFragment extends Fragment
 
     @Override
     public void onForget(LongTaskDialog dialog) {
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_long_task_add, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+            case R.id.long_task_adding_task:
+                updateDialog();
+                mDialog.show();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
 }

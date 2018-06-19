@@ -3,12 +3,15 @@ package com.zhaoheh.livflow.ShortTermTask;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,8 +35,6 @@ public class ShortTaskSavedFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
 
-    private FloatingActionButton mFab;
-
     private ShortTaskDataSavedAdapter mAdapter;
 
     private List<ShortTaskData> mData;
@@ -56,7 +57,7 @@ public class ShortTaskSavedFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         mActivity = (PrimaryActivity) getActivity();
-        mData = DataSupport.findAll(ShortTaskData.class);
+        setHasOptionsMenu(true);
     }
 
 
@@ -67,7 +68,7 @@ public class ShortTaskSavedFragment extends Fragment {
         // Inflate the layout for this fragment
         mFragmentView = inflater.inflate(R.layout.fragment_short_task_saved, container, false);
         mRecyclerView = mFragmentView.findViewById(R.id.short_task_saved_rv);
-        mFab = mFragmentView.findViewById(R.id.short_task_editing_fab);
+        mData = DataSupport.findAll(ShortTaskData.class);
         initViews();
         return mFragmentView;
     }
@@ -134,13 +135,26 @@ public class ShortTaskSavedFragment extends Fragment {
         mRecyclerView.setLayoutManager(llmForSaved);
         mAdapter = new ShortTaskDataSavedAdapter(mData);
         mRecyclerView.setAdapter(mAdapter);
+    }
 
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_short_task_saved_to_editing, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+            case R.id.short_task_saved_to_editing:
                 mActivity.setShortTaskEditingFragment();
-            }
-        });
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
 }

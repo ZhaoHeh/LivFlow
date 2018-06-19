@@ -83,13 +83,21 @@ public class ShortTaskDataEditingAdapter extends
     }
 
 
-    public void temporarilySaveContent(RecyclerView rv) {
+    public void saveAllItemContent(RecyclerView rv) {
         for (int i = 0; i < mData.size(); i++) {
             View v = rv.getChildAt(i);
             EditText et = v.findViewById(R.id.task_content_for_short_editing);
             String txt = et.getText().toString();
             mData.get(i).setContent(txt);
         }
+    }
+
+
+    public void addNewShortTermTask() {
+        ShortTaskData newItem = new ShortTaskData();
+        newItem.setContent("");
+        mData.add(newItem);
+        notifyDataSetChanged();
     }
 
 

@@ -4,7 +4,11 @@ package com.zhaoheh.livflow.LongTermTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -23,10 +27,10 @@ import java.util.List;
  */
 public class LongTaskDetailFragment extends Fragment {
 
+    private static final String TAG = "LongTaskDetailFrg";
+
 
     private PrimaryActivity mActivity;
-
-    private int mTaskId;
 
     private String mLongTaskName;
 
@@ -42,7 +46,7 @@ public class LongTaskDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mActivity = (PrimaryActivity) getActivity();
         mLongTaskName = mActivity.getLongTaskName();
-        mTaskData = getLongTaskData(mLongTaskName);
+        setHasOptionsMenu(true);
     }
 
 
@@ -68,6 +72,8 @@ public class LongTaskDetailFragment extends Fragment {
                 mActivity.switchLongTaskNodesFragment();
             }
         });
+
+        mTaskData = getLongTaskData(mLongTaskName);
 
         taskNameView.setText(mTaskData.getName());
         taskTargetView.setText(mTaskData.getTarget());
@@ -100,6 +106,26 @@ public class LongTaskDetailFragment extends Fragment {
         else if (state == TaskState.STATE_DROPPED) return "Task is abandoned";
         else if (state == TaskState.STATE_DONE) return "Task is finished";
         else return "Unknown";
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_long_task_node_add, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+            case R.id.long_task_adding_node:
+                Log.d(TAG, "onOptionsItemSelected long_task_adding_node");
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
 }

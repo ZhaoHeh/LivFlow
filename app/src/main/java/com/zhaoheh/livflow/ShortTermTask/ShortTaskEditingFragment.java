@@ -2,15 +2,16 @@ package com.zhaoheh.livflow.ShortTermTask;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,8 +40,6 @@ public class ShortTaskEditingFragment extends Fragment {
 
     private ShortTaskDataEditingAdapter mAdapter;
 
-    private FloatingActionButton mFAB;
-
 
     public ShortTaskEditingFragment() {
         // Required empty public constructor
@@ -58,7 +57,7 @@ public class ShortTaskEditingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        mData = DataSupport.findAll(ShortTaskData.class);
+        setHasOptionsMenu(true);
     }
 
 
@@ -72,8 +71,8 @@ public class ShortTaskEditingFragment extends Fragment {
                 container, false);
 
         mRecyclerView = mFragmentView.findViewById(R.id.short_task_editing_rv);
-        mFAB = (FloatingActionButton) mFragmentView.findViewById(R.id.short_task_adding_fab);
 
+        mData = DataSupport.findAll(ShortTaskData.class);
         initView();
 
         return mFragmentView;
@@ -147,14 +146,6 @@ public class ShortTaskEditingFragment extends Fragment {
                 .TouchHelperCallback(mAdapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(mRecyclerView);
-
-        mFAB.setBackgroundColor(Color.parseColor("#ffffff"));
-        mFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNewShortTermTask();
-            }
-        });
     }
 
 
@@ -215,14 +206,67 @@ public class ShortTaskEditingFragment extends Fragment {
     }
 
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_short_task_editing_to_saved, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+            case R.id.short_task_adding_task:
+                addNewShortTermTask();
+                break;
+            case R.id.short_task_editing_to_saved:
+                saveDataAndBack();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+
+    /**向当前正在显示的RecyclerView中添加一个item
+     * 由于我们实现了拖曳排序和滑动删除的功能，而这两个功能修改的其实是mAdapter中的数据
+     * 因此把mAdapter的成员mData作为修改和保存的对象才是最直接和方便的
+     */
     private void addNewShortTermTask() {
-        mAdapter.temporarilySaveContent(mRecyclerView);
-        List<ShortTaskData> tempData = mAdapter.getData();
-        ShortTaskData newItem = new ShortTaskData();
-        newItem.setContent("New Item Added");
-        tempData.add(newItem);
-        mAdapter.setData(tempData);
-        mAdapter.notifyDataSetChanged();
+        Log.d(TAG, "addNewShortTermTask");
+        mAdapter.saveAllItemContent(mRecyclerView);
+        mAdapter.addNewShortTermTask();
+    }
+
+
+    /**LitePal十分强大, 对于一个数据对象如shortTaskData，它会视情况使用save()方法:
+     * 如果此对象未保存过，则save()会添加此对象到数据库, 如果已保存过, 则save()方法会修改与此对象对应的数据表元素
+     * 而且如果数据对象在程序进行过几次复制操作而产生的一系列对象，那么它们对应的数据表元素也将是同一个, 举例来讲:
+     * mData = DataSupport.findAll(ShortTaskData.class);
+     * dataA = mData.get(x); dataB = dataA;
+     * 那么dataB和dataA对应的数据表元素是相同的,
+     * 也就是说dataB.save()不会在数据表中新建元素, 而是将数据保存到dataA对应的元素中
+     *
+     * 然而, 这也会有一些问题, 那就是我们在通过拖曳排序和滑动删除操作的时候, 数据的顺序以及数据的被被删除是无法通过
+     * save()方法完成的, 我们必须将数据库原有的数据全部清除, 把新的数据保存进去才可以将顺序信息, 被删除信息也保存到数据库.
+     * 同时, 又因为mAdapter中的数据mData由this.mData赋值, 因此也是和数据库有映射的, 如果我们已经把数据库清空,
+     * 对这些"记录在案"的数据对象, save()方法不再有效, 因此我们必须用new出来的数据对象替换原来的数据对象才能使用save()
+     */
+    private void saveDataAndBack() {
+        Log.d(TAG, "saveDataAndBack");
+        DataSupport.deleteAll(ShortTaskData.class);
+        mAdapter.saveAllItemContent(mRecyclerView);
+        List<ShortTaskData> dataSetFromAdapter = mAdapter.getData();
+        for (ShortTaskData data : dataSetFromAdapter) {
+            ShortTaskData dataToDatabase = new ShortTaskData();
+            dataToDatabase.setContent(data.getContent());
+            dataToDatabase.setCreatedTime(data.getCreatedTime());
+            dataToDatabase.setState(data.getState());
+            dataToDatabase.setTaskId(data.getTaskId());
+            dataToDatabase.save();
+        }
+        mActivity.backLastFragment();
     }
 
 }

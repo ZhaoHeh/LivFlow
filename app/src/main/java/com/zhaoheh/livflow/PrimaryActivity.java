@@ -12,21 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.zhaoheh.livflow.DailyLifeRecord.DailyRecordMainFragment;
-import com.zhaoheh.livflow.LongTermTask.LongTaskData;
 import com.zhaoheh.livflow.LongTermTask.LongTaskDetailFragment;
 import com.zhaoheh.livflow.LongTermTask.LongTaskFragment;
-import com.zhaoheh.livflow.LongTermTask.LongTaskNodeData;
 import com.zhaoheh.livflow.LongTermTask.LongTaskNodesFragment;
-import com.zhaoheh.livflow.ShortTermTask.ShortTaskData;
 import com.zhaoheh.livflow.ShortTermTask.ShortTaskEditingFragment;
 import com.zhaoheh.livflow.ShortTermTask.ShortTaskSavedFragment;
 import com.zhaoheh.livflow.TaskCalendar.TaskCalendarMainFragment;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
@@ -67,6 +62,16 @@ public class PrimaryActivity extends AppCompatActivity
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         }
 
+        /**使用toolbar自带的点击响应监听方法代替onOptionsItemSelected()方法
+         * 对点击HomeAsUp的响应, 以便fragment中重写的onOptionsItemSelected()方法得以生效
+         */
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
         // 设置滑动菜单(由NavigationView实现)的点击响应事件
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_short_task);
@@ -75,22 +80,6 @@ public class PrimaryActivity extends AppCompatActivity
         // 设置初始的fragment
         setFragment(SHORT_TASK);
     }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-        }
-        return true;
-    }
-
-
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_primary, menu);
-//        return true;
-//    }
 
 
     @Override
@@ -159,6 +148,8 @@ public class PrimaryActivity extends AppCompatActivity
     }
 
 
+    // 一下函数都是将会在Fragment中调用的有关fragment操作的方法
+
     public void setShortTaskEditingFragment() {
         ShortTaskEditingFragment fragment = new ShortTaskEditingFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -199,6 +190,11 @@ public class PrimaryActivity extends AppCompatActivity
         transaction.replace(R.id.fragment, new LongTaskNodesFragment());
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+    public void backLastFragment() {
+        getSupportFragmentManager().popBackStack();
     }
 
 }
