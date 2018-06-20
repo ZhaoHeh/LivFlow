@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,12 +26,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LongTaskDetailFragment extends Fragment {
+public class LongTaskDetailFragment extends Fragment
+        implements LongTaskNodeDialog.LongTaskNodeDialogListener{
 
     private static final String TAG = "LongTaskDetailFrg";
 
 
     private MainActivity mActivity;
+
+    private View mFragmentView;
 
     private String mLongTaskName;
 
@@ -54,17 +58,11 @@ public class LongTaskDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(
+        mFragmentView = inflater.inflate(
                 R.layout.fragment_long_task_detail, container, false);
 
-        LinearLayout llDetail = view.findViewById(R.id.long_task_bottom_detail);
-        LinearLayout llNodes = view.findViewById(R.id.long_task_bottom_nodes);
-
-        TextView taskNameView = view.findViewById(R.id.task_name);
-        TextView taskTargetView = view.findViewById(R.id.task_target);
-        TextView taskDesireView = view.findViewById(R.id.task_desire);
-        TextView taskStateView = view.findViewById(R.id.task_state);
-        TextView taskCreatedTimeView = view.findViewById(R.id.task_create_time);
+        LinearLayout llDetail = mFragmentView.findViewById(R.id.long_task_bottom_detail);
+        LinearLayout llNodes = mFragmentView.findViewById(R.id.long_task_bottom_nodes);
 
         llNodes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,15 +71,9 @@ public class LongTaskDetailFragment extends Fragment {
             }
         });
 
-        mTaskData = getLongTaskData(mLongTaskName);
+        updateView();
 
-        taskNameView.setText(mTaskData.getName());
-        taskTargetView.setText(mTaskData.getTarget());
-        taskDesireView.setText(mTaskData.getDesire());
-        taskStateView.setText(getTaskStateInString(mTaskData.getState()));
-        taskCreatedTimeView.setText(mTaskData.getCreatedTime());
-
-        return view;
+        return mFragmentView;
     }
 
 
@@ -121,6 +113,8 @@ public class LongTaskDetailFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.long_task_adding_node:
                 Log.d(TAG, "onOptionsItemSelected long_task_adding_node");
+                LongTaskNodeDialog dialog = new LongTaskNodeDialog(mActivity, this);
+                dialog.show();
                 break;
             default:
                 break;
@@ -128,4 +122,54 @@ public class LongTaskDetailFragment extends Fragment {
         return true;
     }
 
+
+    @Override
+    public void onSubmit(LongTaskNodeDialog dialog) {
+        View view = dialog.getView();
+        final EditText editText = (EditText) view.findViewById(R.id.long_task_node_content);
+        String content = editText.getText().toString();
+        if (content.equals("")) {
+            Log.d(TAG, "Node content is null and do nothing.");
+        } else {
+            LongTaskData taskData = dialog.getLongTaskData(mLongTaskName);
+
+            if (taskData.getTaskId() == -1) return;
+            Log.d(TAG, "taskData.getTaskId() != -1");
+
+            LongTaskNodeData taskNodeData = new LongTaskNodeData();
+            taskNodeData.setBelongTo(taskData.getTaskId());
+            taskNodeData.setSerialNum(taskData.getNumNodes());
+            taskNodeData.setContent(content);
+            taskNodeData.setCreatedTime(dialog.getCurrentTime());
+            taskNodeData.save();
+
+            taskData.setNumNodes(taskData.getNumNodes()+1);
+            taskData.save();
+
+            updateView();
+        }
+    }
+
+
+    @Override
+    public void onForget(LongTaskNodeDialog dialog) {
+    }
+
+
+    private void updateView() {
+
+        mTaskData = getLongTaskData(mLongTaskName);
+
+        TextView taskNameView = mFragmentView.findViewById(R.id.task_name);
+        TextView taskTargetView = mFragmentView.findViewById(R.id.task_target);
+        TextView taskDesireView = mFragmentView.findViewById(R.id.task_desire);
+        TextView taskStateView = mFragmentView.findViewById(R.id.task_state);
+        TextView taskCreatedTimeView = mFragmentView.findViewById(R.id.task_create_time);
+
+        taskNameView.setText(mTaskData.getName());
+        taskTargetView.setText(mTaskData.getTarget());
+        taskDesireView.setText(mTaskData.getDesire());
+        taskStateView.setText(getTaskStateInString(mTaskData.getState()));
+        taskCreatedTimeView.setText(mTaskData.getCreatedTime());
+    }
 }

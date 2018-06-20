@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.zhaoheh.livflow.MainActivity;
@@ -27,12 +28,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LongTaskNodesFragment extends Fragment {
+public class LongTaskNodesFragment extends Fragment
+        implements LongTaskNodeDialog.LongTaskNodeDialogListener{
 
     private static final String TAG = "LongTaskNodesFragment";
 
 
     private MainActivity mActivity;
+
+    private View mFragmentView;
 
     private String mLongTaskName;
 
@@ -96,19 +100,14 @@ public class LongTaskNodesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_long_task_nodes, container, false);
+        mFragmentView = inflater.inflate(R.layout.fragment_long_task_nodes, container, false);
 
-        mRecyclerView = view.findViewById(R.id.long_task_nodes_rv);
+        mRecyclerView = mFragmentView.findViewById(R.id.long_task_nodes_rv);
 
-        LinearLayout llDetail = view.findViewById(R.id.long_task_bottom_detail);
-        LinearLayout llNodes = view.findViewById(R.id.long_task_bottom_nodes);
+        LinearLayout llDetail = mFragmentView.findViewById(R.id.long_task_bottom_detail);
+        LinearLayout llNodes = mFragmentView.findViewById(R.id.long_task_bottom_nodes);
 
-        mData = getLongTaskNodesData(mLongTaskName);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mAdapter = new LongTaskNodeDataAdapter(mData);
-        mRecyclerView.setAdapter(mAdapter);
+        updateView();
 
         llDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +116,7 @@ public class LongTaskNodesFragment extends Fragment {
             }
         });
 
-        return view;
+        return mFragmentView;
     }
 
 
@@ -133,11 +132,57 @@ public class LongTaskNodesFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.long_task_adding_node:
                 Log.d(TAG, "onOptionsItemSelected long_task_adding_node");
+                LongTaskNodeDialog dialog = new LongTaskNodeDialog(mActivity, this);
+                dialog.show();
                 break;
             default:
                 break;
         }
         return true;
+    }
+
+
+    @Override
+    public void onSubmit(LongTaskNodeDialog dialog) {
+        View view = dialog.getView();
+        final EditText editText = (EditText) view.findViewById(R.id.long_task_node_content);
+        String content = editText.getText().toString();
+        if (content.equals("")) {
+            Log.d(TAG, "Node content is null and do nothing.");
+        } else {
+            LongTaskData taskData = dialog.getLongTaskData(mLongTaskName);
+
+            if (taskData.getTaskId() == -1) return;
+            Log.d(TAG, "taskData.getTaskId() != -1");
+
+            LongTaskNodeData taskNodeData = new LongTaskNodeData();
+            taskNodeData.setBelongTo(taskData.getTaskId());
+            taskNodeData.setSerialNum(taskData.getNumNodes());
+            taskNodeData.setContent(content);
+            taskNodeData.setCreatedTime(dialog.getCurrentTime());
+            taskNodeData.save();
+
+            taskData.setNumNodes(taskData.getNumNodes()+1);
+            taskData.save();
+
+            updateView();
+        }
+    }
+
+
+    @Override
+    public void onForget(LongTaskNodeDialog dialog) {
+    }
+
+
+    private void updateView() {
+
+        mData = getLongTaskNodesData(mLongTaskName);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mAdapter = new LongTaskNodeDataAdapter(mData);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 }
