@@ -3,20 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="节点内容"
-        android:textSize="18sp"/>
+    android:layout_height="match_parent"
+    android:padding="24dp">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/long_task_node_content"
-        android:hint="请为你的任务制定名称" />
+        android:hint="请输入本次节点的内容" />
 
 </LinearLayout>

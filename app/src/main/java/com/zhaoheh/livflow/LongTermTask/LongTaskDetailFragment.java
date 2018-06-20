@@ -92,11 +92,11 @@ public class LongTaskDetailFragment extends Fragment
 
 
     private String getTaskStateInString(int state) {
-        if (state == TaskState.STATE_READY) return "Task Ready";
-        else if (state == TaskState.STATE_DOING) return "Task is being executed";
-        else if (state == TaskState.STATE_SUSPENDED) return "Task is suspended";
-        else if (state == TaskState.STATE_DROPPED) return "Task is abandoned";
-        else if (state == TaskState.STATE_DONE) return "Task is finished";
+        if (state == TaskState.STATE_READY) return "Ready";
+        else if (state == TaskState.STATE_DOING) return "Doing";
+        else if (state == TaskState.STATE_SUSPENDED) return "Suspended";
+        else if (state == TaskState.STATE_DROPPED) return "Dropped";
+        else if (state == TaskState.STATE_DONE) return "Done";
         else return "Unknown";
     }
 
@@ -164,12 +164,25 @@ public class LongTaskDetailFragment extends Fragment
         TextView taskTargetView = mFragmentView.findViewById(R.id.task_target);
         TextView taskDesireView = mFragmentView.findViewById(R.id.task_desire);
         TextView taskStateView = mFragmentView.findViewById(R.id.task_state);
+        TextView taskLastUpdateView = mFragmentView.findViewById(R.id.task_last_update_time);
         TextView taskCreatedTimeView = mFragmentView.findViewById(R.id.task_create_time);
 
         taskNameView.setText(mTaskData.getName());
         taskTargetView.setText(mTaskData.getTarget());
         taskDesireView.setText(mTaskData.getDesire());
         taskStateView.setText(getTaskStateInString(mTaskData.getState()));
+        taskLastUpdateView.setText(getLongTaskLastUpdateTime(mTaskData));
         taskCreatedTimeView.setText(mTaskData.getCreatedTime());
+    }
+
+
+    private String getLongTaskLastUpdateTime(LongTaskData data) {
+        List<LongTaskNodeData> dataSet = DataSupport.findAll(LongTaskNodeData.class);
+        for (LongTaskNodeData nodeData : dataSet) {
+            if (nodeData.getBelongTo() == data.getName().hashCode() &&
+                    nodeData.getSerialNum() == data.getNumNodes() - 1)
+                return nodeData.getCreatedTime();
+        }
+        return "something wrong";
     }
 }

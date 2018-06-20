@@ -9,7 +9,7 @@
     android:layout_marginRight="0dp"
     android:layout_marginBottom="1dp"
     android:paddingLeft="20dp"
-    android:paddingRight="5dp"
+    android:paddingRight="4dp"
     android:background="@color/suspended_state_short_task_bg_color">
 
     <TextView

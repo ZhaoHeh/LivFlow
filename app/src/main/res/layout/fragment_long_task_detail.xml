@@ -11,136 +11,157 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
+
+        <!-- <长期任务的细节展示> -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" >
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="left|center_vertical"
-                    android:text="名称："
-                    android:textSize="24sp"/>
+                android:layout_height="80dp" >
 
                 <TextView
                     android:id="@+id/task_name"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
                     android:gravity="left|center_vertical"
-                    android:textSize="24sp"/>
+                    android:text="Long Task Name"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/tertiary_text_dark"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="60dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/task_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center_vertical"
+                        android:textSize="24sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:text="更新于："
+                            android:textSize="14sp"/>
+                        <TextView
+                            android:id="@+id/task_last_update_time"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="left|center_vertical"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:text="创建于："
+                            android:textSize="14sp"/>
+                        <TextView
+                            android:id="@+id/task_create_time"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="left|center_vertical"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
                     android:gravity="left|center_vertical"
                     android:text="目标："
-                    android:textSize="24sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/tertiary_text_dark" />
 
                 <TextView
                     android:id="@+id/task_target"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="left|center_vertical"
-                    android:textSize="24sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:textSize="20sp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="150dp" >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
                     android:gravity="left|center_vertical"
                     android:text="需求："
-                    android:textSize="24sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/tertiary_text_dark" />
 
                 <TextView
                     android:id="@+id/task_desire"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="left|center_vertical"
-                    android:textSize="24sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="left|center_vertical"
-                    android:text="状态："
-                    android:textSize="24sp"/>
-
-                <TextView
-                    android:id="@+id/task_state"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="left|center_vertical"
-                    android:textSize="24sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="left|center_vertical"
-                    android:text="创建时间："
-                    android:textSize="24sp"/>
-
-                <TextView
-                    android:id="@+id/task_create_time"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="left|center_vertical"
-                    android:textSize="24sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:textSize="20sp"/>
 
             </LinearLayout>
 
         </LinearLayout>
+        <!-- </长期任务的细节展示> -->
 
+
+        <!-- <底部导航栏> -->
         <LinearLayout
             android:id="@+id/long_task_bottom"
             android:orientation="horizontal"
@@ -201,6 +222,7 @@
             </LinearLayout>
 
         </LinearLayout>
+        <!-- </底部导航栏> -->
 
     </LinearLayout>
 

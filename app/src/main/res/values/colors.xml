@@ -3,19 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="appTheme">#BC2332</color>
 
-    <color name="prmActColor">#d55555</color>
+    <color name="appTheme">#d55555</color>
+
+    <color name="prmActColor">@color/appTheme</color>
     <color name="prmActColorLight">#ff6369</color>
     <color name="prmActColorDark">#b73538</color>
 
-    <color name="selected">@color/prmActColor</color>
-    <color name="unSelected">#999999</color>
-
-    <color name="white">#FFFFFF</color>
-    <color name="normalBackground">#EEEEEE</color>
-    <color name="normalBackground1">#CCCCCC</color>
-    <color name="appTheme6">#FF9AA9</color>
+    <color name="selected">@color/appTheme</color>
+    <color name="unSelected">@color/gary</color>
 
     <color name="ready_state_short_task_bg_color">@color/normalBackground</color>
     <color name="doing_state_short_task_bg_color">@color/normalBackground</color>
@@ -28,5 +24,32 @@
     <color name="suspended_state_short_task_txt_color">@color/appTheme</color>
     <color name="done_state_short_task_txt_color">#95A5A5</color>
     <color name="dropped_state_short_task_txt_color">#95A5A5</color>
+
+    <color name="white">#ffffff</color>
+    <color name="gary">#999999</color>
+    <color name="normalBackground">#eeeeee</color>
+
+    <color name="normalBackground1">#cccccc</color>
+    <color name="appTheme6">#FF9AA9</color>
+
+    <color name="color03">@android:color/holo_blue_bright</color>
+    <color name="color04">@android:color/holo_blue_dark</color>
+    <color name="color05">@android:color/holo_blue_light</color>
+    <color name="color06">@android:color/holo_green_dark</color>
+    <color name="color07">@android:color/holo_green_light</color>
+    <color name="color08">@android:color/holo_orange_dark</color>
+    <color name="color09">@android:color/holo_orange_light</color>
+    <color name="color10">@android:color/holo_red_dark</color>
+    <color name="color11">@android:color/holo_red_light</color>
+
+    <color name="color01">@android:color/background_dark</color>
+    <color name="color02">@android:color/background_light</color>
+    <color name="color12">@android:color/darker_gray</color>
+    <color name="color13">@android:color/primary_text_dark</color>
+    <color name="color14">@android:color/primary_text_dark_nodisable</color>
+    <color name="color15">@android:color/secondary_text_dark</color>
+    <color name="color16">@android:color/secondary_text_dark_nodisable</color>
+    <color name="color17">@android:color/secondary_text_light</color>
+    <color name="color18">@android:color/secondary_text_light_nodisable</color>
 
 </resources>

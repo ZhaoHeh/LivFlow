@@ -4,6 +4,7 @@ package com.zhaoheh.livflow.ShortTermTask;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -141,6 +142,8 @@ public class ShortTaskEditingFragment extends Fragment {
         mRecyclerView.setLayoutManager(llm);
         mAdapter = new ShortTaskDataEditingAdapter(mData);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                mActivity, DividerItemDecoration.VERTICAL));
 
         ItemTouchHelper.Callback callback = new ShortTaskEditingFragment
                 .TouchHelperCallback(mAdapter);
