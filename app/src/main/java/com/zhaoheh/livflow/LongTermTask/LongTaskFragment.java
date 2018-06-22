@@ -149,8 +149,11 @@ public class LongTaskFragment extends Fragment
         List<LongTaskSimpleData> tasks = new ArrayList<>();
         List<LongTaskData> tasksFromDB = DataSupport.findAll(LongTaskData.class);
         for (LongTaskData task : tasksFromDB) {
-            LongTaskSimpleData info = new LongTaskSimpleData(task);
-            tasks.add(info);
+            if (task.getName() == null) task.delete();
+            else {
+                LongTaskSimpleData info = new LongTaskSimpleData(task);
+                tasks.add(info);
+            }
         }
         mData = tasks;
     }

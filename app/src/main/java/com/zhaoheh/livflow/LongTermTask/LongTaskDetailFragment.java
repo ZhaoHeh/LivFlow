@@ -48,6 +48,7 @@ public class LongTaskDetailFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         mActivity = (MainActivity) getActivity();
         mLongTaskName = mActivity.getLongTaskName();
         setHasOptionsMenu(true);
@@ -61,6 +62,7 @@ public class LongTaskDetailFragment extends Fragment
         mFragmentView = inflater.inflate(
                 R.layout.fragment_long_task_detail, container, false);
 
+        Log.d(TAG, "onCreateView");
         LinearLayout llDetail = mFragmentView.findViewById(R.id.long_task_bottom_detail);
         LinearLayout llNodes = mFragmentView.findViewById(R.id.long_task_bottom_nodes);
 
@@ -74,30 +76,6 @@ public class LongTaskDetailFragment extends Fragment
         updateView();
 
         return mFragmentView;
-    }
-
-
-    private LongTaskData getLongTaskData(String name) {
-        List<LongTaskData> dataSet = DataSupport.findAll(LongTaskData.class);
-        for (LongTaskData data : dataSet) {
-            if (data.getName().equals(name)) {
-                return data;
-            }
-        }
-        LongTaskData data = new LongTaskData();
-        data.setName("Something wrong");
-        data.setTaskId(-1);
-        return data;
-    }
-
-
-    private String getTaskStateInString(int state) {
-        if (state == TaskState.STATE_READY) return "Ready";
-        else if (state == TaskState.STATE_DOING) return "Doing";
-        else if (state == TaskState.STATE_SUSPENDED) return "Suspended";
-        else if (state == TaskState.STATE_DROPPED) return "Dropped";
-        else if (state == TaskState.STATE_DONE) return "Done";
-        else return "Unknown";
     }
 
 
@@ -173,6 +151,32 @@ public class LongTaskDetailFragment extends Fragment
         taskStateView.setText(getTaskStateInString(mTaskData.getState()));
         taskLastUpdateView.setText(getLongTaskLastUpdateTime(mTaskData));
         taskCreatedTimeView.setText(mTaskData.getCreatedTime());
+    }
+
+
+    private LongTaskData getLongTaskData(String name) {
+        List<LongTaskData> dataSet = DataSupport.findAll(LongTaskData.class);
+        for (LongTaskData data : dataSet) {
+            if (data.getName() == null)
+                Log.d(TAG, "getLongTaskData data name is null.");
+            else if (data.getName().equals(name)) {
+                return data;
+            }
+        }
+        LongTaskData data = new LongTaskData();
+        data.setName("Something wrong");
+        data.setTaskId(-1);
+        return data;
+    }
+
+
+    private String getTaskStateInString(int state) {
+        if (state == TaskState.STATE_READY) return "Ready";
+        else if (state == TaskState.STATE_DOING) return "Doing";
+        else if (state == TaskState.STATE_SUSPENDED) return "Suspended";
+        else if (state == TaskState.STATE_DROPPED) return "Dropped";
+        else if (state == TaskState.STATE_DONE) return "Done";
+        else return "Unknown";
     }
 
 
