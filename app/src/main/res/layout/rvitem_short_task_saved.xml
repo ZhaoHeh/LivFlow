@@ -10,7 +10,7 @@
     android:layout_marginBottom="1dp"
     android:paddingLeft="20dp"
     android:paddingRight="4dp"
-    android:background="@color/suspended_state_short_task_bg_color">
+    android:background="@color/readyStateBgColor">
 
     <TextView
         android:id="@+id/task_content_for_short_saved"
@@ -20,7 +20,7 @@
         android:layout_centerInParent="true"
         android:text="This is the task's name."
         android:textSize="18sp"
-        android:textColor="@color/ready_state_short_task_txt_color"
+        android:textColor="@color/readyStateTxColor"
         android:textStyle="normal" />
 
     <LinearLayout

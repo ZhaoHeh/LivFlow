@@ -9,28 +9,25 @@
     <color name="prmActColor">@color/appTheme</color>
     <color name="prmActColorLight">#ff6369</color>
     <color name="prmActColorDark">#b73538</color>
+    <color name="normalBackground">#eeeeee</color>
 
     <color name="selected">@color/appTheme</color>
     <color name="unSelected">@color/gary</color>
 
-    <color name="ready_state_short_task_bg_color">@color/normalBackground</color>
-    <color name="doing_state_short_task_bg_color">@color/normalBackground</color>
-    <color name="suspended_state_short_task_bg_color">@color/normalBackground1</color>
-    <color name="done_state_short_task_bg_color">@color/normalBackground</color>
-    <color name="dropped_state_short_task_bg_color">@color/normalBackground</color>
+    <color name="readyStateBgColor">@color/white</color>
+    <color name="doingStateBgColor">@color/white</color>
+    <color name="suspendedStateBgColor">@color/normalBackground</color>
+    <color name="doneStateBgColor">@color/normalBackground</color>
+    <color name="droppedStateBgColor">@color/normalBackground</color>
 
-    <color name="ready_state_short_task_txt_color">@color/appTheme6</color>
-    <color name="doing_state_short_task_txt_color">@color/appTheme</color>
-    <color name="suspended_state_short_task_txt_color">@color/appTheme</color>
-    <color name="done_state_short_task_txt_color">#95A5A5</color>
-    <color name="dropped_state_short_task_txt_color">#95A5A5</color>
+    <color name="readyStateTxColor">#FF9AA9</color>
+    <color name="doingStateTxtColor">@color/appTheme</color>
+    <color name="suspendedStateTxtColor">@color/appTheme</color>
+    <color name="doneStateTxtColor">#c3c3c3</color>
+    <color name="droppedStateTxtColor">#c3c3c3</color>
 
     <color name="white">#ffffff</color>
     <color name="gary">#999999</color>
-    <color name="normalBackground">#eeeeee</color>
-
-    <color name="normalBackground1">#cccccc</color>
-    <color name="appTheme6">#FF9AA9</color>
 
     <color name="color03">@android:color/holo_blue_bright</color>
     <color name="color04">@android:color/holo_blue_dark</color>

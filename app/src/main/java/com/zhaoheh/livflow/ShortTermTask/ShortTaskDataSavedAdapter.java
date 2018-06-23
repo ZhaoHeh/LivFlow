@@ -18,22 +18,6 @@ import java.util.List;
 public class ShortTaskDataSavedAdapter extends
         RecyclerView.Adapter<ShortTaskDataSavedAdapter.ViewHolder> {
 
-    static String ready_state_short_task_bg_color = "#ffffff";
-    static String doing_state_short_task_bg_color = "#ffffff";
-    static String suspended_state_short_task_bg_color = "#eeeeee";
-    static String done_state_short_task_bg_color = "#eeeeee";
-    static String dropped_state_short_task_bg_color = "#eeeeee";
-
-    static String ready_state_short_task_txt_color = "#ff9aa9";
-    static String doing_state_short_task_txt_color = "#bc2332";
-    static String suspended_state_short_task_txt_color = "#bc2332";
-    static String done_state_short_task_txt_color = "#c3c3c3";
-    static String dropped_state_short_task_txt_color = "#c3c3c3";
-
-    static String validTextButtonColor = "#bc2332";
-    static String invalidTextButtonColor = "#c3c3c3";
-
-//    private List<ShortTermTaskData> mData;
     private List<ShortTaskData> mData;
 
 
@@ -69,7 +53,7 @@ public class ShortTaskDataSavedAdapter extends
 
 
     @Override
-    public void onBindViewHolder(final ShortTaskDataSavedAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final ShortTaskData shortTaskData = mData.get(position);
         holder.mTextView.setText(shortTaskData.getContent());
         if (shortTaskData.getState() == TaskState.STATE_READY)
@@ -85,12 +69,14 @@ public class ShortTaskDataSavedAdapter extends
     }
 
 
-    private void switchToReadyState(final ShortTaskDataSavedAdapter.ViewHolder holder, final int position) {
+    private void switchToReadyState(final ViewHolder holder, final int position) {
 
         /* Set the Style */
 
-        holder.mParent.setBackgroundColor(Color.parseColor(ready_state_short_task_bg_color));
-        holder.mTextView.setTextColor(Color.parseColor(ready_state_short_task_txt_color));
+        holder.mParent.setBackgroundColor(
+                holder.mParent.getContext().getResources().getColor(R.color.readyStateBgColor));
+        holder.mTextView.setTextColor(
+                holder.mTextView.getContext().getResources().getColor(R.color.readyStateTxColor));
         holder.mStateInstr.setText("准备");
 
         /* Set the Response of the clicking on ImageView */
@@ -98,30 +84,33 @@ public class ShortTaskDataSavedAdapter extends
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                View dialogLayout = LayoutInflater.from(v.getContext())
-//                        .inflate(R.layout.operation_dialog_for_short_term_task, null);
                 View dialogLayout = LayoutInflater.from(v.getContext())
-                        .inflate(R.layout.dialog_short_task_saved_operation, null);
+                        .inflate(R.layout.dialog_task_state_operation, null);
                 /* 去做 */
                 TextView txtBtnTodo =
-                        dialogLayout.findViewById(R.id.todo_btn_op_dialog_short_task);
-                txtBtnTodo.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_todo);
+                txtBtnTodo.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 完成 */
                 TextView txtBtnDone =
-                        dialogLayout.findViewById(R.id.done_btn_op_dialog_short_task);
-                txtBtnDone.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_done);
+                txtBtnDone.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 挂起 */
                 TextView txtBtnSuspend =
-                        dialogLayout.findViewById(R.id.suspend_btn_op_dialog_short_task);
-                txtBtnSuspend.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_suspend);
+                txtBtnSuspend.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 继续 无效*/
                 TextView txtBtnContinue =
-                        dialogLayout.findViewById(R.id.continue_btn_op_dialog_short_task);
-                txtBtnContinue.setTextColor(Color.parseColor(invalidTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_continue);
+                txtBtnContinue.setTextColor(
+                        v.getContext().getResources().getColor(R.color.unSelected));
                 /* 放弃 */
                 TextView txtBtnDrop =
-                        dialogLayout.findViewById(R.id.drop_btn_op_dialog_short_task);
-                txtBtnDrop.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_drop);
+                txtBtnDrop.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
 
                 final AlertDialog dialog = new AlertDialog.Builder(v.getContext()).create();
                 dialog.setCancelable(true);
@@ -155,6 +144,8 @@ public class ShortTaskDataSavedAdapter extends
                     }
                 });
 
+                txtBtnContinue.setOnClickListener(null);
+
                 txtBtnDrop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -171,8 +162,10 @@ public class ShortTaskDataSavedAdapter extends
 
         /* Set the Style */
 
-        holder.mParent.setBackgroundColor(Color.parseColor(doing_state_short_task_bg_color));
-        holder.mTextView.setTextColor(Color.parseColor(doing_state_short_task_txt_color));
+        holder.mParent.setBackgroundColor(
+                holder.mParent.getContext().getResources().getColor(R.color.doingStateBgColor));
+        holder.mTextView.setTextColor(
+                holder.mTextView.getContext().getResources().getColor(R.color.doingStateTxtColor));
         holder.mStateInstr.setText("在做");
 
         /* Set the Response of the clicking on ImageView */
@@ -180,30 +173,33 @@ public class ShortTaskDataSavedAdapter extends
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                View dialogLayout = LayoutInflater.from(v.getContext())
-//                        .inflate(R.layout.operation_dialog_for_short_term_task, null);
                 View dialogLayout = LayoutInflater.from(v.getContext())
-                        .inflate(R.layout.dialog_short_task_saved_operation, null);
+                        .inflate(R.layout.dialog_task_state_operation, null);
                 /* 去做 无效*/
                 TextView txtBtnTodo =
-                        dialogLayout.findViewById(R.id.todo_btn_op_dialog_short_task);
-                txtBtnTodo.setTextColor(Color.parseColor(invalidTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_todo);
+                txtBtnTodo.setTextColor(
+                        v.getContext().getResources().getColor(R.color.unSelected));
                 /* 完成 */
                 TextView txtBtnDone =
-                        dialogLayout.findViewById(R.id.done_btn_op_dialog_short_task);
-                txtBtnDone.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_done);
+                txtBtnDone.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 挂起 */
                 TextView txtBtnSuspend =
-                        dialogLayout.findViewById(R.id.suspend_btn_op_dialog_short_task);
-                txtBtnSuspend.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_suspend);
+                txtBtnSuspend.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 继续 无效 */
                 TextView txtBtnContinue =
-                        dialogLayout.findViewById(R.id.continue_btn_op_dialog_short_task);
-                txtBtnContinue.setTextColor(Color.parseColor(invalidTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_continue);
+                txtBtnContinue.setTextColor(
+                        v.getContext().getResources().getColor(R.color.unSelected));
                 /* 放弃 */
                 TextView txtBtnDrop =
-                        dialogLayout.findViewById(R.id.drop_btn_op_dialog_short_task);
-                txtBtnDrop.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_drop);
+                txtBtnDrop.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
 
                 final AlertDialog dialog = new AlertDialog.Builder(v.getContext()).create();
                 dialog.setCancelable(true);
@@ -212,6 +208,8 @@ public class ShortTaskDataSavedAdapter extends
                 dialog.getWindow().setContentView(dialogLayout);
 
                 /* Set the response of buttons in dialog */
+
+                txtBtnTodo.setOnClickListener(null);
 
                 txtBtnDone.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -228,6 +226,8 @@ public class ShortTaskDataSavedAdapter extends
                         switchToSuspendedState(holder, position);
                     }
                 });
+
+                txtBtnContinue.setOnClickListener(null);
 
                 txtBtnDrop.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -250,8 +250,10 @@ public class ShortTaskDataSavedAdapter extends
 
         /* Set the Style */
 
-        holder.mParent.setBackgroundColor(Color.parseColor(suspended_state_short_task_bg_color));
-        holder.mTextView.setTextColor(Color.parseColor(suspended_state_short_task_txt_color));
+        holder.mParent.setBackgroundColor(
+                holder.mParent.getContext().getResources().getColor(R.color.suspendedStateBgColor));
+        holder.mTextView.setTextColor(
+                holder.mTextView.getContext().getResources().getColor(R.color.suspendedStateTxtColor));
         holder.mStateInstr.setText("挂起");
 
         /* Set the Response of the clicking on ImageView */
@@ -259,30 +261,33 @@ public class ShortTaskDataSavedAdapter extends
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                View dialogLayout = LayoutInflater.from(v.getContext())
-//                        .inflate(R.layout.operation_dialog_for_short_term_task, null);
                 View dialogLayout = LayoutInflater.from(v.getContext())
-                        .inflate(R.layout.dialog_short_task_saved_operation, null);
+                        .inflate(R.layout.dialog_task_state_operation, null);
                 /* 去做 无效 */
                 TextView txtBtnTodo =
-                        dialogLayout.findViewById(R.id.todo_btn_op_dialog_short_task);
-                txtBtnTodo.setTextColor(Color.parseColor(invalidTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_todo);
+                txtBtnTodo.setTextColor(
+                        v.getContext().getResources().getColor(R.color.unSelected));
                 /* 完成 */
                 TextView txtBtnDone =
-                        dialogLayout.findViewById(R.id.done_btn_op_dialog_short_task);
-                txtBtnDone.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_done);
+                txtBtnDone.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 挂起 无效 */
                 TextView txtBtnSuspend =
-                        dialogLayout.findViewById(R.id.suspend_btn_op_dialog_short_task);
-                txtBtnSuspend.setTextColor(Color.parseColor(invalidTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_suspend);
+                txtBtnSuspend.setTextColor(
+                        v.getContext().getResources().getColor(R.color.unSelected));
                 /* 继续 */
                 TextView txtBtnContinue =
-                        dialogLayout.findViewById(R.id.continue_btn_op_dialog_short_task);
-                txtBtnContinue.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_continue);
+                txtBtnContinue.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
                 /* 放弃 */
                 TextView txtBtnDrop =
-                        dialogLayout.findViewById(R.id.drop_btn_op_dialog_short_task);
-                txtBtnDrop.setTextColor(Color.parseColor(validTextButtonColor));
+                        dialogLayout.findViewById(R.id.task_state_opt_drop);
+                txtBtnDrop.setTextColor(
+                        v.getContext().getResources().getColor(R.color.selected));
 
                 final AlertDialog dialog = new AlertDialog.Builder(v.getContext()).create();
                 dialog.setCancelable(true);
@@ -292,6 +297,8 @@ public class ShortTaskDataSavedAdapter extends
 
                 /* Set the response of buttons in dialog */
 
+                txtBtnTodo.setOnClickListener(null);
+
                 txtBtnDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -299,6 +306,8 @@ public class ShortTaskDataSavedAdapter extends
                         switchToDoneState(holder, position);
                     }
                 });
+
+                txtBtnSuspend.setOnClickListener(null);
 
                 txtBtnContinue.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -329,18 +338,16 @@ public class ShortTaskDataSavedAdapter extends
 
         /* Set the Style */
 
-        holder.mParent.setBackgroundColor(Color.parseColor(done_state_short_task_bg_color));
-        holder.mTextView.setTextColor(Color.parseColor(done_state_short_task_txt_color));
+        holder.mParent.setBackgroundColor(
+                holder.mParent.getContext().getResources().getColor(R.color.doneStateBgColor));
+        holder.mTextView.setTextColor(
+                holder.mTextView.getContext().getResources().getColor(R.color.doneStateTxtColor));
         holder.mTextView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         holder.mStateInstr.setText("完成");
 
         /* Set the Response of the clicking on ImageView */
 
-        holder.mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        holder.mImageView.setOnClickListener(null);
 
         ShortTaskData shortTermTaskData = mData.get(position);
         shortTermTaskData.setState(TaskState.STATE_DONE);
@@ -353,17 +360,15 @@ public class ShortTaskDataSavedAdapter extends
 
         /* Set the Style */
 
-        holder.mParent.setBackgroundColor(Color.parseColor(dropped_state_short_task_bg_color));
-        holder.mTextView.setTextColor(Color.parseColor(dropped_state_short_task_txt_color));
+        holder.mParent.setBackgroundColor(
+                holder.mParent.getContext().getResources().getColor(R.color.droppedStateBgColor));
+        holder.mTextView.setTextColor(
+                holder.mTextView.getContext().getResources().getColor(R.color.droppedStateTxtColor));
         holder.mStateInstr.setText("放弃");
 
         /* Set the Response of the clicking on ImageView */
 
-        holder.mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        holder.mImageView.setOnClickListener(null);
 
         ShortTaskData shortTermTaskData = mData.get(position);
         shortTermTaskData.setState(TaskState.STATE_DROPPED);

@@ -44,7 +44,7 @@ public class LongTaskFragment extends Fragment
 
     private RecyclerView mRecyclerView;
 
-    private List<LongTaskSimpleData> mData;
+    private List<LongTaskData> mData;
 
     private AlertDialog mDialog;
 
@@ -146,23 +146,15 @@ public class LongTaskFragment extends Fragment
 
 
     private void updateData() {
-        List<LongTaskSimpleData> tasks = new ArrayList<>();
-        List<LongTaskData> tasksFromDB = DataSupport.findAll(LongTaskData.class);
-        for (LongTaskData task : tasksFromDB) {
-            if (task.getName() == null) task.delete();
-            else {
-                LongTaskSimpleData info = new LongTaskSimpleData(task);
-                tasks.add(info);
-            }
-        }
-        mData = tasks;
+        mData = null;
+        mData = DataSupport.findAll(LongTaskData.class);
     }
 
 
     private void initViews() {
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(llm);
-        LongTaskSimpleDataAdapter adapter = new LongTaskSimpleDataAdapter(mData, mActivity);
+        LongTaskDataAdapter adapter = new LongTaskDataAdapter(mData, mActivity);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 mActivity, DividerItemDecoration.VERTICAL));

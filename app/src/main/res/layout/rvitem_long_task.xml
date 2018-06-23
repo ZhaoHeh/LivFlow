@@ -4,8 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="4dp">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
 
     <LinearLayout
@@ -22,8 +22,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="left|center_vertical"
             android:text="This is the task's name."
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/last_update"
@@ -46,17 +45,6 @@
         android:layout_marginRight="5dp">
 
         <TextView
-            android:id="@+id/last_update_date"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_alignParentRight="true"
-            android:gravity="right|center_vertical"
-            android:text="1995/07/18"
-            android:textColor="@color/unSelected"
-            android:textSize="12sp" />
-
-        <TextView
             android:id="@+id/last_update_time"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -64,6 +52,17 @@
             android:layout_alignParentRight="true"
             android:gravity="right|center_vertical"
             android:text="00:00:00"
+            android:textColor="@color/unSelected"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/last_update_date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"
+            android:text="1995/07/18"
             android:textColor="@color/unSelected"
             android:textSize="12sp" />
 
