@@ -1,72 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhaoheh.livflow.ContainSwipeView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:layout_height="60dp">
 
+    <com.zhaoheh.livflow.SwipeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3" >
-
-        <TextView
-            android:id="@+id/task_name"
+        <com.zhaoheh.livflow.InSwipeView
+            android:id="@+id/main_content"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:layout_alignParentLeft="true"
-            android:gravity="left|center_vertical"
-            android:text="This is the task's name."
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
 
-        <TextView
-            android:id="@+id/last_update"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_alignParentLeft="true"
-            android:gravity="left|center_vertical"
-            android:text="This is the last node information."
-            android:textSize="12sp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" >
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/task_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left|center_vertical"
+                    android:text="This is the task's name."
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/last_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left|center_vertical"
+                    android:text="This is the last node information."
+                    android:textSize="12sp" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginRight="5dp">
-
-        <TextView
-            android:id="@+id/last_update_time"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_alignParentRight="true"
-            android:gravity="right|center_vertical"
-            android:text="00:00:00"
-            android:textColor="@color/unSelected"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/last_update_date"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_alignParentRight="true"
-            android:gravity="right|center_vertical"
-            android:text="1995/07/18"
-            android:textColor="@color/unSelected"
-            android:textSize="12sp" />
-
-    </LinearLayout>
+            </LinearLayout>
 
 
-</LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp">
+
+                <TextView
+                    android:id="@+id/last_update_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right|center_vertical"
+                    android:text="00:00:00"
+                    android:textColor="@color/unSelected"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/last_update_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right|center_vertical"
+                    android:text="1995/07/18"
+                    android:textColor="@color/unSelected"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </com.zhaoheh.livflow.InSwipeView>
+
+
+        <LinearLayout
+            android:id="@+id/two_operations"
+            android:layout_width="180dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/remove_from_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="12dp"
+                android:background="@color/lowLight"
+                android:text="移出列表"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/remove_from_database"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="12dp"
+                android:background="@color/highLight"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </com.zhaoheh.livflow.SwipeView>
+
+</com.zhaoheh.livflow.ContainSwipeView>

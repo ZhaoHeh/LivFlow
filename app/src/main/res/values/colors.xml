@@ -14,6 +14,9 @@
     <color name="selected">@color/appTheme</color>
     <color name="unSelected">@color/gary</color>
 
+    <color name="lowLight">#c7c7cc</color>
+    <color name="highLight">#ff3a30</color>
+
     <color name="readyStateBgColor">@color/white</color>
     <color name="doingStateBgColor">@color/white</color>
     <color name="suspendedStateBgColor">@color/normalBackground</color>

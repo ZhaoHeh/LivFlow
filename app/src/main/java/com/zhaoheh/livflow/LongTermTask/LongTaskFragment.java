@@ -4,7 +4,6 @@ package com.zhaoheh.livflow.LongTermTask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +25,6 @@ import com.zhaoheh.livflow.TaskState;
 import org.litepal.crud.DataSupport;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +32,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class LongTaskFragment extends Fragment
-        implements LongTaskDialog.LongTaskDialogListener {
+        implements LongTaskDialog.LongTaskDialogListener, LongTaskDataAdapter.UpdateIfCallBack {
 
     private static final String TAG = "LongTaskFragment";
 
@@ -154,13 +152,17 @@ public class LongTaskFragment extends Fragment
     private void initViews() {
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(llm);
-        LongTaskDataAdapter adapter = new LongTaskDataAdapter(mData, mActivity);
+        LongTaskDataAdapter adapter = new LongTaskDataAdapter(mData, mActivity, this);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 mActivity, DividerItemDecoration.VERTICAL));
     }
 
 
+    /**
+     * 实现LongTaskDialog.LongTaskDialogListener中, submit按钮和cancel按钮被点击后的回调方法
+     * @param dialog
+     */
     @Override
     public void onSubmit(LongTaskDialog dialog) {
         if (mDialog != null) {
@@ -220,12 +222,23 @@ public class LongTaskFragment extends Fragment
     }
 
 
+    /**
+     * 回调方法, 实现本方法后, 将会在toolbar中创建一个右侧菜单按钮
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_long_task_add, menu);
     }
 
 
+    /**
+     * 设置toolbar中右侧菜单中按钮元素的响应
+     * 在本例中, 仅有一个菜单按钮
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d(TAG, "onOptionsItemSelected");
@@ -240,4 +253,11 @@ public class LongTaskFragment extends Fragment
         return true;
     }
 
+
+    // 实现LongTaskDataAdapter.UpdateIfCallBack, 此方法用于在adapter中更新数据和界面
+    @Override
+    public void updateInterface() {
+        updateData();
+        initViews();
+    }
 }
